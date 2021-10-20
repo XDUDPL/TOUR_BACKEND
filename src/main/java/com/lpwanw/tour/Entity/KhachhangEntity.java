@@ -11,26 +11,26 @@ import java.time.LocalDate;
 public class KhachhangEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "kh_id", nullable = false)
+    @Column(name = "kh_id")
     private Integer id;
 
     @Lob
-    @Column(name = "kh_ten", nullable = false)
+    @Column(name = "kh_ten")
     private String khTen;
 
     @Lob
-    @Column(name = "kh_sdt", nullable = false)
+    @Column(name = "kh_sdt")
     private String khSdt;
 
-    @Column(name = "kh_ngaysinh", nullable = false)
+    @Column(name = "kh_ngaysinh")
     private LocalDate khNgaysinh;
 
     @Lob
-    @Column(name = "kh_email", nullable = false)
+    @Column(name = "kh_email")
     private String khEmail;
 
     @Lob
-    @Column(name = "kh_cmnd", nullable = false)
+    @Column(name = "kh_cmnd")
     private String khCmnd;
 
     public String getKhCmnd() {
