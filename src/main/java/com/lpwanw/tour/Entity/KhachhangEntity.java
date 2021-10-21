@@ -1,36 +1,40 @@
 package com.lpwanw.tour.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Table(name = "tour_khachhang")
 @Entity
 public class KhachhangEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "kh_id", nullable = false)
+    @Column(name = "kh_id")
     private Integer id;
 
     @Lob
-    @Column(name = "kh_ten", nullable = false)
+    @Column(name = "kh_ten")
     private String khTen;
 
     @Lob
-    @Column(name = "kh_sdt", nullable = false)
+    @Column(name = "kh_sdt")
     private String khSdt;
 
-    @Column(name = "kh_ngaysinh", nullable = false)
+    @Column(name = "kh_ngaysinh")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate khNgaysinh;
 
     @Lob
-    @Column(name = "kh_email", nullable = false)
+    @Column(name = "kh_email")
     private String khEmail;
 
     @Lob
-    @Column(name = "kh_cmnd", nullable = false)
+    @Column(name = "kh_cmnd")
     private String khCmnd;
 
     public String getKhCmnd() {
