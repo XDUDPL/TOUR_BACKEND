@@ -16,29 +16,34 @@ import java.util.Optional;
 public class KhachHangServiceContoller {
     @Autowired
     KhachhangRepository khachhangRepository;
+
+    @GetMapping("")
+    public List<KhachhangEntity> getAll(){
+        return khachhangRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<KhachhangEntity> getById(@PathVariable int id){
+        Optional<KhachhangEntity> kh = khachhangRepository.findById(id);
+        return kh.map(khachhangEntity -> new ResponseEntity<>(khachhangEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     @PostMapping("")
     public KhachhangEntity addOne(@RequestBody KhachhangEntity khachhangEntity){
         int id = khachhangRepository.save(khachhangEntity).getId();
         return khachhangRepository.getById(id);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<KhachhangEntity> getById(@PathVariable int id){
+
+    @PutMapping("/{id}")
+    public ResponseEntity<KhachhangEntity> update(@PathVariable int id, @RequestBody KhachhangEntity khachhangEntity){
         Optional<KhachhangEntity> kh = khachhangRepository.findById(id);
-        return kh.isPresent()?new ResponseEntity<>(kh.get(), HttpStatus.OK):new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-    @GetMapping("")
-    public List<KhachhangEntity> getAll(){
-        return khachhangRepository.findAll();
-    }
-    @PutMapping("")
-    public ResponseEntity<KhachhangEntity> update(@RequestBody KhachhangEntity khachhangEntity){
-        Optional<KhachhangEntity> kh = khachhangRepository.findById(khachhangEntity.getId());
         if(kh.isPresent()){
             return new ResponseEntity<>(khachhangRepository.save(khachhangEntity), HttpStatus.OK);
         }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<KhachhangEntity> delete(@PathVariable int id){
         Optional<KhachhangEntity> kh = khachhangRepository.findById(id);
