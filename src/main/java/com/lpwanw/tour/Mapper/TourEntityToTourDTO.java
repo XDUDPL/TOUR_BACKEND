@@ -12,6 +12,7 @@ public class TourEntityToTourDTO {
         tourDTO.setTourMoTa(entity.getTourMota());
         tourDTO.setTenLoai(entity.getLoai().getLoaiTen());
         tourDTO.setMoTaLoai(entity.getLoai().getLoaiMota());
+        tourDTO.setIdLoai(entity.getLoai().getId());
         return tourDTO;
     }
 

@@ -9,13 +9,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TourService {
     @Autowired
     private TourRepository tourRepository;
 
-    public List<TourDTO> GetTour (){
+    public List<TourDTO> GetAll (){
         TourEntityToTourDTO tourEntityToTourDTO = new TourEntityToTourDTO();
         List<TourEntity> listTours = new ArrayList<>();
         listTours = tourRepository.findAll();
@@ -27,4 +28,21 @@ public class TourService {
         }
         return tourDTOS;
     }
+
+    public Optional<TourEntity> GetTourById (Integer id){
+        return tourRepository.findById(id);
+    }
+
+    public TourEntity InsertTour (TourEntity tourEntity){
+        return tourRepository.save(tourEntity);
+    }
+
+    public TourEntity UpdateTour (TourEntity tourEntity){
+        return tourRepository.save(tourEntity);
+    }
+
+    public void DeleteTour(Integer id){
+        tourRepository.deleteById(id);
+    }
+
 }

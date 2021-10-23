@@ -6,6 +6,15 @@ public class TourDTO {
     private String tourMoTa;
     private String tenLoai;
     private String moTaLoai;
+    private Integer idLoai;
+
+    public Integer getIdLoai() {
+        return idLoai;
+    }
+
+    public void setIdLoai(Integer idLoai) {
+        this.idLoai = idLoai;
+    }
 
     public Integer getId() {
         return id;
