@@ -36,12 +36,13 @@ public class KhachHangServiceContoller {
 
     @PutMapping("/{id}")
     public ResponseEntity<KhachhangEntity> update(@PathVariable int id, @RequestBody KhachhangEntity khachhangEntity){
-        Optional<KhachhangEntity> kh = khachhangRepository.findById(id);
-        if(kh.isPresent()){
-            return new ResponseEntity<>(khachhangRepository.save(khachhangEntity), HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return khachhangRepository.findById(id).map(kh->{
+            khachhangEntity.setId(id);
+            return new ResponseEntity<>(khachhangRepository.save(khachhangEntity),HttpStatus.OK);
+        }).orElseGet(()->{
+            khachhangEntity.setId(id);
+            return new ResponseEntity<>(khachhangRepository.save(khachhangEntity),HttpStatus.OK);
+        });
     }
 
     @DeleteMapping("/{id}")
