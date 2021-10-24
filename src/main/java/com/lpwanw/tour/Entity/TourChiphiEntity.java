@@ -3,19 +3,23 @@ package com.lpwanw.tour.Entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Table(name = "tour_chiphi", indexes = {
-        @Index(name = "doan_id", columnList = "doan_id")
-})
+@Table(name = "tour_chiphi")
 @Entity
 public class TourChiphiEntity {
-    @EmbeddedId
-    private TourChiphiEntityId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "chiphi_id", nullable = false)
+    private Integer id;
 
-    @Column(name = "chiphi_total", nullable = false, precision = 10)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "doan_id", nullable = false)
+    private TourDoanEntity doan;
+
+    @Column(name = "chiphi_total", precision = 10)
     private BigDecimal chiphiTotal;
 
     @Lob
-    @Column(name = "chiphi_chitiet", nullable = false)
+    @Column(name = "chiphi_chitiet")
     private String chiphiChitiet;
 
     public String getChiphiChitiet() {
@@ -34,11 +38,19 @@ public class TourChiphiEntity {
         this.chiphiTotal = chiphiTotal;
     }
 
-    public TourChiphiEntityId getId() {
+    public TourDoanEntity getDoan() {
+        return doan;
+    }
+
+    public void setDoan(TourDoanEntity doan) {
+        this.doan = doan;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(TourChiphiEntityId id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }
