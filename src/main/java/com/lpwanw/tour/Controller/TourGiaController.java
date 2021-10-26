@@ -23,7 +23,7 @@ public class TourGiaController {
     @GetMapping("/{id}")
     public ResponseEntity<TourGiaEntity> getById(@PathVariable int id){
         Optional<TourGiaEntity> gia = tourgiaRepository.findById(id);
-        return gia.map(tourChitietEntity -> new ResponseEntity<>(tourChitietEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return gia.map(tourGiaEntity -> new ResponseEntity<>(tourGiaEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @PostMapping("")
     public TourGiaEntity addOne(@RequestBody TourGiaEntity tourgiaEntity){
