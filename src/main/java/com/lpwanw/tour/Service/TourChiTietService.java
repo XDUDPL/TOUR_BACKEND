@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -25,14 +26,14 @@ public class TourChiTietService {
 
     public TourChitietEntity Insert (TourChitietEntity tourChitietEntity){
         List<TourChitietEntity> list = tourChitietRepository.findByTourID(tourChitietEntity.getTour().getId());
-        tourChitietEntity.setCtThutu(list.size());
+        tourChitietEntity.setCtThutu(list.size()+1);
         return tourChitietRepository.save(tourChitietEntity);
     }
 
     public TourChitietEntity Update (TourChitietEntity tourChitietEntity){
         TourChitietEntity item = tourChitietRepository.getById(tourChitietEntity.getId());
         List<TourChitietEntity> list = tourChitietRepository.findByTourID(tourChitietEntity.getTour().getId());
-        TourChitietEntity swap = list.stream().filter(itemChild-> itemChild.getCtThutu()==tourChitietEntity.getCtThutu()).findFirst().get();
+        TourChitietEntity swap = list.stream().filter(itemChild-> Objects.equals(itemChild.getCtThutu(), tourChitietEntity.getCtThutu())).findFirst().get();
         swap.setCtThutu(item.getCtThutu());
         tourChitietRepository.save(swap);
         return tourChitietRepository.save(tourChitietEntity);

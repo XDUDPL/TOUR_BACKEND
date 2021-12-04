@@ -1,5 +1,7 @@
 package com.lpwanw.tour.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -21,6 +23,7 @@ public class TourGiaEntity {
     private Integer tourId;
 
     @Column(name = "gia_tungay", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate giaTungay;
 
     @Lob

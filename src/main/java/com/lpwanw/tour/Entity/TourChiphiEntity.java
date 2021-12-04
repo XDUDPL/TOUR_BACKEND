@@ -1,7 +1,10 @@
 package com.lpwanw.tour.Entity;
 
+import com.google.gson.Gson;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Table(name = "tour_chiphi")
 @Entity
@@ -11,7 +14,7 @@ public class TourChiphiEntity {
     @Column(name = "chiphi_id", nullable = false)
     private Integer id;
 
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     @JoinColumn(name = "doan_id", nullable = false)
     private TourDoanEntity doan;
 
@@ -52,5 +55,14 @@ public class TourChiphiEntity {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    public BigDecimal CalTotal(){
+        BigDecimal result = new BigDecimal(0);
+        ChiPhiEntity[] arr = new Gson().fromJson(getChiphiChitiet(),ChiPhiEntity[].class);
+        for (ChiPhiEntity a : arr) {
+            result = result.add(a.getGia());
+        }
+        System.out.println(result);
+        return result;
     }
 }
