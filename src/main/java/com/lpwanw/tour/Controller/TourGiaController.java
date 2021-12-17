@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -25,12 +26,18 @@ public class TourGiaController {
         Optional<TourGiaEntity> gia = tourgiaRepository.findById(id);
         return gia.map(tourGiaEntity -> new ResponseEntity<>(tourGiaEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+    @GetMapping("/tour/{id}")
+    public List<TourGiaEntity> getByTourId(@PathVariable int id){
+        List<TourGiaEntity> gia = tourgiaRepository.findByTourID(id);
+        gia.sort((o1, o2) -> 0);
+        return gia;
+    }
     @PostMapping("")
     public TourGiaEntity addOne(@RequestBody TourGiaEntity tourgiaEntity){
        int id = tourgiaRepository.save(tourgiaEntity).getId();
        return tourgiaRepository.getById(id);
     }
-    @PutMapping("/{id")
+    @PutMapping("/{id}")
     public ResponseEntity<TourGiaEntity> update(@PathVariable int id, @RequestBody TourGiaEntity tourgiaEntity){
         Optional<TourGiaEntity> gia = tourgiaRepository.findById(id);
         if(gia.isPresent()){

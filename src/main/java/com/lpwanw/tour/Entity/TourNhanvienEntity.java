@@ -1,5 +1,7 @@
 package com.lpwanw.tour.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -20,6 +22,7 @@ public class TourNhanvienEntity {
     private String nvSdt;
 
     @Column(name = "nv_ngaysinh", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate nvNgaysinh;
 
     @Lob

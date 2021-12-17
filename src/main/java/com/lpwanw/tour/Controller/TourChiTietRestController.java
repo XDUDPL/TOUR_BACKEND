@@ -33,19 +33,13 @@ public class TourChiTietRestController {
     @GetMapping("/{id}")
     public ResponseEntity<TourChitietEntity> getByID(@PathVariable  Integer id){
         Optional<TourChitietEntity> e = tourChiTietService.GetById(id);
-        if(e.isPresent()){
-            return new ResponseEntity<TourChitietEntity>(e.get(),HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return e.map(tourChitietEntity -> new ResponseEntity<>(tourChitietEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
     @PostMapping("")
     public ResponseEntity<TourChitietEntity> save(@RequestBody TourChitietEntity tourChitietEntity){
         Integer id = tourChiTietService.Insert(tourChitietEntity).getId();
         Optional<TourChitietEntity> e = tourChiTietService.GetById(id);
-        if(e.isPresent()){
-            return new ResponseEntity<>(e.get(),HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        return e.map(chitietEntity -> new ResponseEntity<>(chitietEntity, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE));
     }
     @PutMapping("/{id}")
     public ResponseEntity<TourChitietEntity> update(@PathVariable Integer id,@RequestBody TourChitietEntity tourChitietEntity){

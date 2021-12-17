@@ -1,6 +1,7 @@
 package com.lpwanw.tour.Entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Table(name = "tours", indexes = {
         @Index(name = "loai_id", columnList = "loai_id")
