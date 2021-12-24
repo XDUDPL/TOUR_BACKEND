@@ -2,7 +2,9 @@ package com.lpwanw.tour.Controller;
 
 import com.lpwanw.tour.Entity.KhachhangEntity;
 import com.lpwanw.tour.Entity.TourChitietEntity;
+import com.lpwanw.tour.Reponsitoty.TourChitietRepository;
 import com.lpwanw.tour.Service.TourChiTietService;
+import com.lpwanw.tour.Service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class TourChiTietRestController {
     @Autowired
     TourChiTietService tourChiTietService;
+    @Autowired
+    TourChitietRepository tourChitietRepository;
     @GetMapping("/tour/{id}")
     public ResponseEntity<List<TourChitietEntity>> findByTourId(@PathVariable Integer id){
         List<TourChitietEntity> list = tourChiTietService.getByTourId(id);
@@ -57,5 +61,16 @@ public class TourChiTietRestController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @DeleteMapping("/tourid/{id}")
+    public ResponseEntity<TourChitietEntity> deleteByTourID(@PathVariable Integer id){
+        List<TourChitietEntity> e = tourChitietRepository.findByTourID(id);
+        if(!e.isEmpty()){
+            for (TourChitietEntity entity : e){
+                tourChiTietService.Delete(entity);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 }

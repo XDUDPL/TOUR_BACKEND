@@ -53,4 +53,5 @@ public class TourChiTietService {
         list.sort(Comparator.comparing(TourChitietEntity::getCtThutu));
         return  list;
     }
+
 }
