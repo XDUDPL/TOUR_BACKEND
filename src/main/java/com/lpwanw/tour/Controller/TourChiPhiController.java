@@ -51,7 +51,7 @@ public class TourChiPhiController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
     @GetMapping("/doan/{id}")
-    public ResponseEntity<List<TourChiphiEntity>> findByTourId(@PathVariable Integer id){
+    public ResponseEntity<List<TourChiphiEntity>> findByDoanId(@PathVariable Integer id){
         List<TourChiphiEntity> list = tourChiphiRepository.findByDoanID(id);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }

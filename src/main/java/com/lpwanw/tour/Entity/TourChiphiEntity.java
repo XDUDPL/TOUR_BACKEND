@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Table(name = "tour_chiphi")
 @Entity
@@ -14,7 +13,7 @@ public class TourChiphiEntity {
     @Column(name = "chiphi_id", nullable = false)
     private Integer id;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "doan_id", nullable = false)
     private TourDoanEntity doan;
 

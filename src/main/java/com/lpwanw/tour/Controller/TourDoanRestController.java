@@ -39,6 +39,7 @@ public class TourDoanRestController {
         if(gia.isPresent()){
             entity.setGia(gia.get());
         }
+        System.out.println(entity.getTour().getTourTen());
         TourChiphiEntity chiphi = new TourChiphiEntity();
         chiphi.setChiphiTotal(new BigDecimal(0));
         chiphi.setChiphiChitiet("[]");
@@ -55,6 +56,9 @@ public class TourDoanRestController {
     public ResponseEntity<TourDoanEntity> upadte(@RequestBody TourDoanEntity tourDoanEntity,@PathVariable Integer id){
         Optional<TourDoanEntity> entity = tourDoanService.getById(id);
         if(entity.isPresent()){
+            if(tourDoanEntity.getDoanNgaydi()==null){
+                tourDoanEntity.setDoanNgaydi(entity.get().getDoanNgaydi());
+            }
             Optional<TourGiaEntity> gia = tourGiaService.getCurrentPriceByTourId(tourDoanEntity.getTour().getId(),tourDoanEntity.getDoanNgaydi());
             if(gia.isPresent())
                 tourDoanEntity.setGia(gia.get());
